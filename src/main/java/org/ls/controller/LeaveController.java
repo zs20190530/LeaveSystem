@@ -45,12 +45,11 @@ public class LeaveController {
 	
 	@GetMapping("queryLeaveList")
 	public String queryLeaveList(HttpServletRequest request, Model model, HttpSession session) {
-		String username = (String)session.getAttribute("username");
-		List<LeaveSituation> leaveList = service.queryLeaveList(username);
-		model.addAttribute("leaveList", leaveList);
-		
 		String isPjax = request.getHeader("X-PJAX");
 		if ("true".equals(isPjax)) {
+			String username = (String)session.getAttribute("username");
+			List<LeaveSituation> leaveList = service.queryLeaveList(username);
+			model.addAttribute("leaveList", leaveList);
 			return "leaveList";
 		}
 		model.addAttribute("selectItem", "queryLeave");
